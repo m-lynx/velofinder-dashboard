@@ -1,0 +1,14 @@
+<div
+  class="flex w-60 shrink-0 flex-col h-full gap-1.5 border-r border-[#262C3A] bg-[#181C26] p-[26px_20px]"
+>
+  <nav>
+    @for (item of navItems; track item.href) {
+      <a
+        routerLink="{{ item.href }}"
+        class="flex h-10 items-center gap-2.5 rounded-lg px-3 text-sm font-medium text-[#FFF8DE] hover:bg-[#262C3A]"
+      >
+        {{ item.label }}
+      </a>
+    }
+  </nav>
+</div>
