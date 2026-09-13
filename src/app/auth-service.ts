@@ -23,7 +23,15 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    // Implement your authentication logic here
+    this.http.get('https://dev.velofinder.pl/api', { withCredentials: true }).subscribe({
+      next: (response) => {
+        console.log('Authentication validated:', response);
+      },
+      error: (error) => {
+        console.error('Authentication validation failed:', error);
+      },
+    });
+
     return true;
   }
 }
