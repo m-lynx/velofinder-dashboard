@@ -1,10 +1,19 @@
 <header
   class="flex items-center justify-between gap-4 border-b border-[#262C3A] bg-[#181C26] px-6 py-4 text-sm h-20"
 >
-  <a href="/" class="flex items-center gap-2.5">
+  <a [href]="siteUrl" class="flex items-center gap-2.5">
     <span class="h-8 w-8 rounded-[10px] bg-[#8CA9FF]" aria-hidden="true"></span>
     <span class="font-display text-xl font-semibold tracking-tight text-[#FFF8DE]">
       Velofinder
     </span>
   </a>
+
+  <div class="flex items-center gap-4 font-medium text-[#FFF8DE]">
+    @if (session(); as currentSession) {
+      <span>{{ currentSession.firstName }}</span>
+    }
+    <button type="button" class="rounded-lg px-3 py-2 hover:bg-[#262C3A]" (click)="handleSignOut()">
+      Wyloguj
+    </button>
+  </div>
 </header>

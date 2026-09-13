@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../auth-service';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +10,12 @@ import { Component } from '@angular/core';
   styleUrl: './header.css',
 })
 export class Header {
-  title = 'dashboard';
+  private readonly authService = inject(AuthService);
+
+  readonly session = this.authService.session;
+  readonly siteUrl = environment.siteUrl;
+
+  handleSignOut(): void {
+    this.authService.signOut().subscribe();
+  }
 }
