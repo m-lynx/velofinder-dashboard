@@ -1,18 +1,45 @@
 <header
-  class="flex items-center justify-between gap-4 border-b border-[#262C3A] bg-[#181C26] px-6 py-4 text-sm h-20"
+  class="relative flex h-20 shrink-0 items-center justify-between gap-4 border-b border-line-soft bg-surface px-4 py-4 text-sm sm:px-6"
 >
-  <a [href]="siteUrl" class="flex items-center gap-2.5">
-    <span class="h-8 w-8 rounded-[10px] bg-[#8CA9FF]" aria-hidden="true"></span>
-    <span class="font-display text-xl font-semibold tracking-tight text-[#FFF8DE]">
-      Velofinder
+  <a [href]="siteUrl" class="flex items-center gap-0.5">
+    <svg
+      aria-hidden="true"
+      class="text-accent"
+      width="32"
+      height="26"
+      viewBox="0 0 1000 800"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="32"
+    >
+      <circle cx="260.73" cy="495.5" r="160.49" stroke-miterlimit="10" />
+      <circle cx="739.51" cy="495.5" r="160.49" stroke-miterlimit="10" />
+      <path
+        d="M585.6,541.05c-6.69-36.96-41.62-79.42-85.48-79.42s-74,37.78-85.37,79.42"
+        stroke-miterlimit="10"
+      />
+      <g stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="M330.17,406.8c-18.99-14.86-42.91-23.72-68.9-23.72-57.93,0-105.57,44.02-111.3,100.44"
+        />
+        <path
+          d="M847.92,527.11c3.05-10.18,4.69-20.98,4.69-32.16,0-61.79-50.09-111.88-111.88-111.88-7.72,0-15.26.78-22.55,2.27"
+        />
+        <polyline points="474.04 404.23 382.21 217.88 712.77 217.88 474.04 404.23" />
+        <path d="M706.3,143.66h67.76s51.71,1,51.71,61.52c0,65.98-78.46,54.39-78.46,54.39" />
+        <line x1="402.27" y1="144.22" x2="316.68" y2="144.22" />
+      </g>
+    </svg>
+    <span class="font-display text-xl font-semibold tracking-tight text-ink">
+      Velo<span class="text-accent">Finder</span>
     </span>
   </a>
 
-  <div class="flex items-center gap-4 font-medium text-[#FFF8DE]">
+  <div class="flex items-center gap-6 font-ui font-medium text-ink-muted">
     @if (session(); as currentSession) {
       <span>{{ currentSession.firstName }}</span>
     }
-    <button type="button" class="rounded-lg px-3 py-2 hover:bg-[#262C3A]" (click)="handleSignOut()">
+    <button type="button" class="transition-colors hover:text-ink" (click)="handleSignOut()">
       Wyloguj
     </button>
   </div>

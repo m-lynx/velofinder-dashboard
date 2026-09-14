@@ -1,11 +1,20 @@
 <div
-  class="flex w-60 shrink-0 flex-col h-full gap-1.5 border-r border-[#262C3A] bg-[#181C26] p-[26px_20px]"
+  class="flex h-full w-60 shrink-0 flex-col gap-1.5 border-e border-line-soft bg-surface p-[26px_20px]"
 >
-  <nav>
+  <nav class="flex flex-col gap-1.5">
     @for (item of navItems; track item.href) {
       <a
+        #navLink="routerLinkActive"
         routerLink="{{ item.href }}"
-        class="flex h-10 items-center gap-2.5 rounded-lg px-3 text-sm font-medium text-[#FFF8DE] hover:bg-[#262C3A]"
+        routerLinkActive="border-line bg-surface font-semibold text-ink"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+        class="flex rounded-[10px] border px-3.5 py-2.75 font-ui text-[13px]"
+        [class.border-transparent]="!navLink.isActive"
+        [class.font-medium]="!navLink.isActive"
+        [class.text-ink-subtle]="!navLink.isActive"
+        [class.transition-colors]="!navLink.isActive"
+        [class.hover:text-ink-body]="!navLink.isActive"
       >
         {{ item.label }}
       </a>

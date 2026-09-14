@@ -1,7 +1,276 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
 
-@import 'tailwindcss';
+@theme static {
+  --color-canvas: #f6f3ec;
+  --color-surface: #fbf9f4;
+  --color-raised: #efebe1;
+  --color-sunken: #eae5d9;
 
-html, body, #root {
-  height: 100%;
+  --color-line: #e2dcd0;
+  --color-line-soft: #ede8de;
+  --color-line-strong: #d8d1c2;
+
+  --color-ink: #2c2a24;
+  --color-ink-body: #4a463c;
+  --color-ink-muted: #6b6558;
+  --color-ink-subtle: #7c7566;
+  --color-ink-faint: #9a9384;
+
+  --color-accent: #6e7f57;
+  --color-accent-strong: #5c6b48;
+  --color-accent-soft: #e7eadc;
+  --color-accent-ink: #556544;
+  --color-on-accent: #fbf9f4;
+
+  --color-marker: #a98249;
+
+  --color-success: #4f7a52;
+  --color-success-soft: #e0ebdd;
+  --color-success-line: #cfe0cb;
+  --color-success-ink: #3d6340;
+
+  --color-danger: #b4483f;
+  --color-danger-soft: #f6e3df;
+  --color-danger-ink: #8f3830;
+
+  --color-warning: #b07f2d;
+  --color-warning-soft: #f7ebd3;
+  --color-warning-ink: #8a6a2a;
+
+  --color-scrim: rgba(44, 42, 36, 0.45);
+
+  --shadow-card: 0 20px 44px rgba(44, 42, 36, 0.18);
+  --shadow-panel: 0 30px 60px rgba(44, 42, 36, 0.18);
+}
+
+:root {
+  --font-arimo: 'Arimo', Arial, Helvetica, sans-serif;
+  --font-work-sans: 'Work Sans', Arial, Helvetica, sans-serif;
+  --font-geist-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-arimo);
+  --font-ui: var(--font-work-sans);
+}
+
+@utility velo-hero-fade {
+  --velo-hero-fade-x: linear-gradient(
+    to right,
+    transparent 0%,
+    #f6f3ec 2%,
+    #f6f3ec 60%,
+    transparent 100%
+  );
+  --velo-hero-fade-y: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #f6f3ec 0%,
+    #f6f3ec 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: var(--velo-hero-fade-x), var(--velo-hero-fade-y);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--velo-hero-fade-x), var(--velo-hero-fade-y);
+  mask-composite: intersect;
+  mask-repeat: no-repeat;
+}
+
+@utility velo-stripes {
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--color-surface) 0px,
+    var(--color-surface) 14px,
+    var(--color-raised) 14px,
+    var(--color-raised) 28px
+  );
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+@property --velo-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --velo-glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes velo-border-spin {
+  to {
+    --velo-border-angle: 360deg;
+  }
+}
+
+@keyframes velo-glow-spin {
+  to {
+    --velo-glow-angle: -360deg;
+  }
+}
+
+.velo-accent-border {
+  position: relative;
+  background: conic-gradient(
+    from var(--velo-border-angle),
+    rgba(110, 127, 87, 0.12) 0deg,
+    rgba(110, 127, 87, 0.4) 55deg,
+    rgba(110, 127, 87, 0.75) 110deg,
+    rgba(110, 127, 87, 1) 165deg,
+    rgba(133, 150, 110, 0.7) 215deg,
+    rgba(163, 177, 138, 0.35) 285deg,
+    rgba(110, 127, 87, 0.12) 360deg
+  );
+  animation: velo-border-spin 6s linear infinite;
+}
+
+.velo-accent-border::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--velo-glow-angle),
+    rgba(110, 127, 87, 0) 0deg,
+    rgba(110, 127, 87, 0.45) 120deg,
+    rgba(110, 127, 87, 0.7) 180deg,
+    rgba(163, 177, 138, 0.35) 250deg,
+    rgba(110, 127, 87, 0) 360deg
+  );
+  filter: blur(14px);
+  opacity: 0.4;
+  animation: velo-glow-spin 8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .velo-accent-border,
+  .velo-accent-border::before {
+    animation: none;
+  }
+}
+
+@keyframes velo-year-in {
+  from {
+    opacity: 0;
+    transform: translateX(var(--velo-year-shift));
+  }
+}
+
+.velo-year-in[data-direction='forward'] {
+  --velo-year-shift: 4px;
+  animation: velo-year-in 160ms ease-out;
+}
+
+.velo-year-in[data-direction='back'] {
+  --velo-year-shift: -4px;
+  animation: velo-year-in 160ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .velo-year-in[data-direction] {
+    animation: none;
+  }
+}
+
+@keyframes velo-fan-out {
+  from {
+    opacity: 0;
+    transform: translate(var(--velo-fan-from-x), var(--velo-fan-from-y))
+      scale(0.6);
+  }
+}
+
+.velo-fan-out {
+  animation: velo-fan-out 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .velo-fan-out {
+    animation: none;
+  }
+}
+
+@keyframes auth-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes velo-particle-drift {
+  0%,
+  100% {
+    opacity: var(--velo-particle-opacity);
+    transform: translate3d(0, 0, 0) scale(0.92);
+  }
+  50% {
+    opacity: calc(var(--velo-particle-opacity) * 2);
+    transform: translate3d(0, calc(var(--velo-particle-drift) * -1), 0)
+      scale(1);
+  }
+}
+
+.velo-particle {
+  opacity: var(--velo-particle-opacity);
+  animation-name: velo-particle-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .velo-particle {
+    animation: none;
+  }
+}
+
+/* Bottom sheet on small screens; a plain left column from `md` up, where the
+  transform must not apply. The fallback offset matches SHEET_PEEK_HEIGHT, so
+   the sheet renders collapsed before it has been measured. */
+.velo-event-sheet {
+  transform: translateY(var(--velo-sheet-offset, calc(100% - 5rem)));
+  transition: transform 340ms cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform;
+}
+
+.velo-event-sheet[data-dragging='true'] {
+  transition: none;
+}
+
+@media (min-width: 768px) {
+  .velo-event-sheet {
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .velo-event-sheet {
+    transition: none;
+  }
+}
+
+/* The floating search bar spans the full width on a phone, so the map's own
+   zoom, compass and geolocate controls start below it. */
+@media (max-width: 767px) {
+  .velo-map-mobile-inset .maplibregl-ctrl-top-left,
+  .velo-map-mobile-inset .maplibregl-ctrl-top-right {
+    margin-top: 3.5rem;
+  }
 }
